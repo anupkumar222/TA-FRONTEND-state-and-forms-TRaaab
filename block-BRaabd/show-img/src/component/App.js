@@ -21,11 +21,11 @@ handleClick = (event) => {
             <div className="container">
             <div>
         {this.imageNames.map((name) => (
-            <button className=" margin" onClick={this.handleClick}>{name}</button>
+            <button className={this.state.currentImage === `/assets/${name}.jpg` ? 'active' : 'margin'} onClick={this.handleClick}>{name}</button>
         ))}
     </div>
            <div>
-        <img className="img" src={this.state.currentImage}/>
+        <img className="img" src={this.state.currentImage} alt={this.state.currentImage}/>
            </div>
 
             </div>
