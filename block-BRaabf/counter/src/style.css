@@ -44,13 +44,25 @@ table {
 
 /* custom reset */
 
-.steps span{
+
+.steps {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+.steps button{
     font-size: 1.2rem;
     margin: 2rem;
     padding: 1rem;
     background-color: blue;
     color: white;
 }
+
+.steps .active-step {
+color: yellow; 
+border: 4px green;
+}
+
 
 button {
     margin-top: 4rem;
@@ -61,4 +73,17 @@ h1 {
     margin-top: 5rem;
     padding: 2rem;
     font-size: 2rem;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: inline;
+}
+.first {
+    margin-right: 12rem;
+}
+.second {
+    margin-left: 9rem;
 }
