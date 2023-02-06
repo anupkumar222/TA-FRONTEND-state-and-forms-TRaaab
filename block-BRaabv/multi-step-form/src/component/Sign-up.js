@@ -88,7 +88,7 @@ class SignUp extends React.Component {
                 />
                 </div>
                 <input
-                onClick={handleStep}
+                onClick={() => handleStep(2)}
                 type="button"
                 value="Next Step"
                 className="first-step" 
