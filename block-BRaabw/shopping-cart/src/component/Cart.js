@@ -18,10 +18,16 @@ class Cart extends React.Component {
         })
     }
     render() {
+        const {cartItem, handleCart, handleCartMinus, handleCartDelete} = this.props
         const { isOpen } = this.state;
         if (!isOpen) {
             return <ClosedCart open={this.open} />;
         }
+
+        const total = cartItem.reduce((acc, elm) => {
+            acc = acc + (elm.quantity*elm.price)
+            return acc
+        }, 0)
         return (
             <>
 
@@ -38,58 +44,46 @@ class Cart extends React.Component {
                             </div>
                             <h2>Cart</h2>
                         </div>
-                        <div className="cart-item">
-                            <figure className="cart-img">
-                                <img src="/static/products/876661122392077_2.jpg" alt="" width="30" />
-                            </figure>
+                        {cartItem.map((item) => (
+                      <div className="cart-item">
+                            
+                      <figure className="cart-img">
+                          <img src={`static/products/${item.sku}_1.jpg`} alt="" width="30" />
+                      </figure>
 
-                            <div className="cart-item-details">
-                                <p className="cart-item-name">Sphynx Tie Dye Wine T-Shirt</p>
-                                <p>X | Front tie dye</p>
-                                <p>print Quantity: 1</p>
-                            </div>
-                            <div className="cart-price">
-                                <p className="cart-cross">x</p>
-                                <p className="price">$ 19.00</p>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="plus-icon">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="plus-icon">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="cart-item">
-                            <figure className="cart-img">
-                                <img src="/static/products/876661122392077_2.jpg" alt="" width="30" />
-                            </figure>
-                            <div className="cart-item-details">
-                                <p className="cart-item-name">Sphynx Tie Dye Wine T-Shirt</p>
-                                <p>X | Front tie dye</p>
-                                <p>print Quantity: 1</p>
-                            </div>
-                            <div className="cart-price">
-                                <p className="cart-cross">x</p>
-                                <p className="price">$ 19.00</p>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="plus-icon">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="plus-icon">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6">
+                      <div className="cart-item-details">
+                          <p className="cart-item-name">{item.title}</p>
+                          <p>{item.style}</p>
+                          <p>print Quantity: {item.quantity}</p>
+                      </div>
+                      <div className="cart-price">
+                          <p onClick={() => handleCartDelete(item.sku)} className="cart-cross">x</p>
+                          <p className="price">$ {item.price}</p>
+                          <div >
+                              <svg onClick={() => handleCart(item)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="plus-icon">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                                    
+                                  </path>
+                              </svg>
+                              <svg 
+                              
+                              onClick={() => item.quantity < 2 ? handleCartDelete(item.sku) : handleCartMinus(item)} 
+                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="plus-icon">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"></path>
+                              </svg>
+                          </div>
+                      </div>
+                  </div>
+                        ))}
+  
 
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
                         <div className="cart-checkout"><div>
                             <p>SUBTOTAL</p>
-                            <p>$ 199.00</p>
+                            <p>$ {total}</p>
                         </div>
-                            <button>CHECKOUT</button>
+                            <button
+                            onClick={()=>{alert(`Your total cart value is $${total}`)}}
+                            >CHECKOUT</button>
                         </div>
                     </div>
                 </aside>

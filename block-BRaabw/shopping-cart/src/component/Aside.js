@@ -7,31 +7,20 @@ class Aside extends React.Component {
     }
 
     render() {
+        let sizes = ['XS', 'S', 'M', 'ML', 'L', 'XL', 'XXL'];
+        let { activeSizes } = this.props.state;
+        let {handleBySize} = this.props
         return(
             <div className=" container">
-                <ul className="flex wrap size-box">
-                    <li className="size">
-                        S
-                    </li>
-                    <li className="size">
-                        XS
-                    </li>
-                    <li className="size">
-                        M
-                    </li>
-                    <li className="size">
-                        X
-                    </li>
-                    <li className="size">
-                        L
-                    </li>
-                    <li className="size">
-                        XL  
-                    </li>
-                    <li className="size">
-                        XXL
-                    </li>
-                </ul>
+                <div className="flex wrap size-box">
+                    {sizes.map((size) => (
+                     <li 
+                     onClick={() => handleBySize(size)}
+                     className= {activeSizes.includes(size) ? "active size" : "size"}>
+                         {size}
+                        </li>
+                    ))}
+                </div>
             </div>
         )
     }
